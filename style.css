@@ -59,9 +59,9 @@ header {
     flex-direction: row;
     align-items: center;
     width: 100%;
-    background: linear-gradient(135deg, var(--peach) 0%, var(--peach-2) 40%, var(--peach-3) 100%);
+    background: transparent;
     color: var(--white);
-    position: relative;
+    position: absolute;
     z-index: 10;
 }
 
@@ -109,6 +109,73 @@ header {
     gap: var(--space-xxs);
 }
 
+/* Posicionamiento relativo para que el submenu se ubique respecto a este elemento */
+.menu ul li.has-submenu {
+    position: relative;
+}
+
+/* Estilo base del submenú (oculto por defecto) */
+.menu ul li .submenu {
+    position: absolute;
+    top: 100%; /* Aparece justo debajo del enlace padre */
+    left: 0;   /* Alineado a la izquierda */
+    background-color: var(--white);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    padding: var(--space-s);
+    min-width: 160px;
+
+    /* Configuración para animación de aparición */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px); /* Un ligero desplazamiento inicial */
+    transition: all 0.3s ease;
+
+    /* Aseguramos que se superponga a otros elementos */
+    z-index: 100;
+
+    /* Cambiamos la dirección para que sea vertical */
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxs);
+}
+
+/* Mostrar el submenú al pasar el mouse por el padre */
+.menu ul li.has-submenu:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Estilos de los enlaces DENTRO del submenú */
+.menu ul li .submenu li a {
+    color: var(--navy-dark); /* Color oscuro para contraste con fondo blanco */
+    font-weight: 400;
+    padding: var(--space-xs) var(--space-s);
+    width: 100%;
+    border-radius: 4px; /* Un radio pequeño para los ítems */
+    transition: all 0.2s ease;
+}
+
+/* Efecto Hover en los enlaces del submenú */
+.menu ul li .submenu li a:hover {
+    color: var(--black);
+    font-weight: 600;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Rotación de la flechita al hacer hover */
+.menu ul li.has-submenu:hover > a .material-symbols-outlined {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+/* Transición suave para la flecha al volver a su estado normal */
+.menu ul li.has-submenu > a .material-symbols-outlined {
+    transition: transform 0.3s ease;
+}
+
+
 header .auth-buttons {
     margin-left: auto;
     display: flex;
@@ -130,6 +197,7 @@ header .auth-buttons {
 
 .auth-buttons button:hover,
 .auth-buttons button:focus-visible {
+    transform: scale(1.05);
     background-color: var(--white);
     color: var(--peach);
     cursor: pointer;
@@ -161,9 +229,12 @@ h1 {
 }
 
 .main-page {
-    background: linear-gradient(135deg, var(--peach) 0%, var(--peach-2) 40%, var(--peach-3) 100%);
+    background:
+            url("assets/img/bg-pattern-intro-desktop.svg"),
+            linear-gradient(135deg, var(--peach) 0%, var(--peach-2) 40%, var(--peach-3) 100%);
+    background-position: center;
     width: 100%;
-    height: 40vh;
+    height: 60vh;
     display: grid;
     place-items: center;
     padding: var(--space-2xl) var(--space-l);
@@ -409,7 +480,7 @@ footer nav ul li ul li a {
     .description-grid {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: auto 1fr;
         grid-template-areas:
         "image"
         "text";
@@ -501,5 +572,133 @@ footer nav ul li ul li a {
     .menu ul,
     header .auth-buttons {
         display: none;
+    }
+
+    .nav-toggle:checked ~ .menu ul,
+    .nav-toggle:checked ~ .auth-buttons {
+        position: absolute;
+        top: 100%;
+        right: var(--space-l);
+        width: min(260px, 80vw);
+        background: #fff;
+        color: var(--black);
+        border-radius: var(--radius-card);
+        padding: var(--space-m);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-s);
+    }
+
+    .nav-toggle:checked ~ .menu ul li a {
+        color: var(--black);
+    }
+
+    .nav-toggle:checked ~ .auth-buttons {
+        position: absolute;
+        top: 220px;
+        right: var(--space-l);
+        background: #fff;
+        color: var(--black);
+        border-radius: var(--radius-card);
+        padding: var(--space-m);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-s);
+    }
+
+    .auth-buttons button {
+        color: var(--black);
+        background: #f7f7f7;
+        border: 1px solid #ececec;
+    }
+
+    .main-page {
+        min-height: 68vh;
+        padding: var(--space-xl) var(--space-m);
+        border-radius: 0 0 0 6rem;
+        background:
+                url("assets/img/bg-pattern-intro-mobile.svg"),
+                linear-gradient(135deg, var(--peach) 0%, var(--peach-2) 40%, var(--peach-3) 100%);
+        background-position: center;
+    }
+
+    .description-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+        "image";
+    }
+
+    .image-container {
+        margin-top: 0;
+        grid-area: image;
+    }
+
+    .description-item {
+        text-align: center;
+        padding-top: 0;
+        margin-bottom: var(--space-xl);
+    }
+
+    .feature-header {
+        display: flex;
+        flex-direction: column;
+        padding: 3rem 1.5rem;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        height: auto;
+        position: relative;
+    }
+
+    .phone-image {
+        position: absolute;
+        top: -120px;
+        justify-items: center;
+        overflow: visible;
+        pointer-events: none;
+    }
+
+    .phone-image img {
+        margin: 1rem 0;
+        width: 280px;
+        height: auto;
+        display: block;
+        justify-items: center;
+    }
+
+    .text-container {
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    .feature-items {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .feature-description {
+        text-align: center;
+    }
+
+    .footer-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    footer .footer-container .logo {
+        margin-right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    footer nav ul {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        text-align: center;
     }
 }

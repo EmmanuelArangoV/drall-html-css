@@ -11,27 +11,63 @@
 <body>
     <header>
         <div class="logo">
-            <a href="">Blogr</a>
+            <a href="#">Blogr</a>
         </div>
 
-        <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Abrir menú">
-
-        <label for="nav-toggle" class="menu-toggle" aria-label="Abrir menú">
-            <span class="material-symbols-outlined">menu</span>
-        </label>
+        <!-- Checkbox para menú móvil -->
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
 
         <nav class="menu">
             <ul>
-                <li><a href="">Product <span class="material-symbols-outlined">keyboard_arrow_down</span></a></li>
-                <li><a href="">Company <span class="material-symbols-outlined">keyboard_arrow_down</span></a></li>
-                <li><a href="">Connect <span class="material-symbols-outlined">keyboard_arrow_down</span></a></li>
+                <li class="has-submenu">
+                    <a href="#">Product
+                        <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#">Overview</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Marketplace</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Integrations</a></li>
+                    </ul>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="#">Company
+                        <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="#">Connect
+                        <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
+
         <div class="auth-buttons">
-            <button class="login-btn">Login</button>
-            <button class="signup-btn">Sign Up</button>
+            <button type="button">Login</button>
+            <button type="button">Sign Up</button>
         </div>
+
+        <!-- Botón hamburguesa -->
+        <label for="nav-toggle" class="menu-toggle">
+            <span class="material-symbols-outlined">menu</span>
+        </label>
     </header>
+
     <main>
         <section class="main-page">
             <div class="main-content">
